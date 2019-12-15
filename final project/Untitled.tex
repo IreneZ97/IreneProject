@@ -1,0 +1,756 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[ignorenonframetext,]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph:
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+\centering
+\begin{beamercolorbox}[sep=16pt,center]{part title}
+  \usebeamerfont{part title}\insertpart\par
+\end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+\centering
+\begin{beamercolorbox}[sep=12pt,center]{part title}
+  \usebeamerfont{section title}\insertsection\par
+\end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+\centering
+\begin{beamercolorbox}[sep=8pt,center]{part title}
+  \usebeamerfont{subsection title}\insertsubsection\par
+\end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={Final Prject},
+            pdfauthor={Xun Zhang},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\newif\ifbibliography
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+\usepackage{caption}
+% These lines are needed to make table captions work with longtable:
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{Final Prject}
+\author{Xun Zhang}
+\date{12/2/2019}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}[fragile]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(readr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: readr
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"population density.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   `Country Name` = col_character(),
+##   `Country Code` = col_character(),
+##   `Indicator Name` = col_character(),
+##   `Indicator Code` = col_character(),
+##   `1960` = col_logical(),
+##   `2019` = col_logical()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## See spec(...) for full column specifications.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"secure internet server.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   `Country Name` = col_character(),
+##   `Country Code` = col_character(),
+##   `Indicator Name` = col_character(),
+##   `Indicator Code` = col_character(),
+##   `2019` = col_logical()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## See spec(...) for full column specifications.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"rural population.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   `Country Name` = col_character(),
+##   `Country Code` = col_character(),
+##   `Indicator Name` = col_character(),
+##   `Indicator Code` = col_character(),
+##   `2019` = col_logical()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## See spec(...) for full column specifications.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"GDP.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   .default = col_logical(),
+##   `Country Name` = col_character(),
+##   `Country Code` = col_character(),
+##   `Indicator Name` = col_character(),
+##   `Indicator Code` = col_character(),
+##   `1991` = col_double(),
+##   `1992` = col_double(),
+##   `1993` = col_double(),
+##   `1994` = col_double(),
+##   `1995` = col_double(),
+##   `1996` = col_double(),
+##   `1997` = col_double(),
+##   `1998` = col_double(),
+##   `1999` = col_double(),
+##   `2000` = col_double(),
+##   `2001` = col_double(),
+##   `2002` = col_double(),
+##   `2003` = col_double(),
+##   `2004` = col_double(),
+##   `2005` = col_double(),
+##   `2006` = col_double()
+##   # ... with 13 more columns
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## See spec(...) for full column specifications.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{e =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"international tourism.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   .default = col_logical(),
+##   `Country Name` = col_character(),
+##   `Country Code` = col_character(),
+##   `Indicator Name` = col_character(),
+##   `Indicator Code` = col_character(),
+##   `1995` = col_double(),
+##   `1996` = col_double(),
+##   `1997` = col_double(),
+##   `1998` = col_double(),
+##   `1999` = col_double(),
+##   `2000` = col_double(),
+##   `2001` = col_double(),
+##   `2002` = col_double(),
+##   `2003` = col_double(),
+##   `2004` = col_double(),
+##   `2005` = col_double(),
+##   `2006` = col_double(),
+##   `2007` = col_double(),
+##   `2008` = col_double(),
+##   `2009` = col_double(),
+##   `2010` = col_double()
+##   # ... with 7 more columns
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## See spec(...) for full column specifications.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"employment in service.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   `Country Name` = col_character(),
+##   `Country Code` = col_character(),
+##   `Indicator Name` = col_character(),
+##   `Indicator Code` = col_character(),
+##   `2019` = col_logical()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## See spec(...) for full column specifications.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: tidyverse
+\end{verbatim}
+
+\begin{verbatim}
+## -- Attaching packages ----------------------------------------------------------- tidyverse 1.2.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.2.1     v purrr   0.3.2
+## v tibble  2.1.3     v dplyr   0.8.3
+## v tidyr   1.0.0     v stringr 1.4.0
+## v ggplot2 3.2.1     v forcats 0.4.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts -------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a1 <-}\StringTok{ }\KeywordTok{select}\NormalTok{(a,}\StringTok{"Country Name"}\NormalTok{,}\StringTok{"2013"}\OperatorTok{:}\StringTok{"2017"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a2 <-}\StringTok{ }\NormalTok{a1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{gather}\NormalTok{(}\StringTok{"year"}\NormalTok{,}\StringTok{"population density"}\NormalTok{,}\OperatorTok{-}\StringTok{"Country Name"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b1 <-}\StringTok{ }\KeywordTok{select}\NormalTok{(b,}\StringTok{"Country Name"}\NormalTok{,}\StringTok{"2013"}\OperatorTok{:}\StringTok{"2017"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b2 <-}\StringTok{ }\NormalTok{b1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{gather}\NormalTok{(}\StringTok{"year"}\NormalTok{,}\StringTok{"secure internet server"}\NormalTok{,}\OperatorTok{-}\StringTok{"Country Name"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c1 <-}\StringTok{ }\KeywordTok{select}\NormalTok{(c,}\StringTok{"Country Name"}\NormalTok{,}\StringTok{"2013"}\OperatorTok{:}\StringTok{"2017"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c2 <-}\StringTok{ }\NormalTok{c1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{gather}\NormalTok{(}\StringTok{"year"}\NormalTok{,}\StringTok{"rural population"}\NormalTok{,}\OperatorTok{-}\StringTok{"Country Name"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d1 <-}\StringTok{ }\KeywordTok{select}\NormalTok{(d,}\StringTok{"Country Name"}\NormalTok{,}\StringTok{"2013"}\OperatorTok{:}\StringTok{"2017"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d2 <-}\StringTok{ }\NormalTok{d1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{gather}\NormalTok{(}\StringTok{"year"}\NormalTok{,}\StringTok{"GDP"}\NormalTok{,}\OperatorTok{-}\StringTok{"Country Name"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{e1 <-}\StringTok{ }\KeywordTok{select}\NormalTok{(e,}\StringTok{"Country Name"}\NormalTok{,}\StringTok{"2013"}\OperatorTok{:}\StringTok{"2017"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{e2 <-}\StringTok{ }\NormalTok{e1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{gather}\NormalTok{(}\StringTok{"year"}\NormalTok{,}\StringTok{"international tourism"}\NormalTok{,}\OperatorTok{-}\StringTok{"Country Name"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f1 <-}\StringTok{ }\KeywordTok{select}\NormalTok{(f,}\StringTok{"Country Name"}\NormalTok{,}\StringTok{"2013"}\OperatorTok{:}\StringTok{"2017"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f2 <-}\StringTok{ }\NormalTok{f1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{gather}\NormalTok{(}\StringTok{"year"}\NormalTok{,}\StringTok{"employmet in survice"}\NormalTok{,}\OperatorTok{-}\StringTok{"Country Name"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat1 <-}\StringTok{ }\KeywordTok{full_join}\NormalTok{(a2,b2,}
+         \DataTypeTok{by=}\KeywordTok{c}\NormalTok{(}\StringTok{'Country Name'}
+\NormalTok{              ,}\StringTok{'year'}\NormalTok{) )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat2 <-}\StringTok{ }\KeywordTok{full_join}\NormalTok{(c2,d2,}
+         \DataTypeTok{by=}\KeywordTok{c}\NormalTok{(}\StringTok{'Country Name'}
+\NormalTok{              ,}\StringTok{'year'}\NormalTok{) )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat3<-}\StringTok{ }\KeywordTok{full_join}\NormalTok{(e2,f2,}
+         \DataTypeTok{by=}\KeywordTok{c}\NormalTok{(}\StringTok{'Country Name'}
+\NormalTok{              ,}\StringTok{'year'}\NormalTok{) )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat4 <-}\StringTok{ }\KeywordTok{full_join}\NormalTok{(dat1,dat2,}
+         \DataTypeTok{by=}\KeywordTok{c}\NormalTok{(}\StringTok{'Country Name'}
+\NormalTok{              ,}\StringTok{'year'}\NormalTok{) )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat5 <-}\StringTok{ }\KeywordTok{full_join}\NormalTok{(dat3,dat4,}
+         \DataTypeTok{by=}\KeywordTok{c}\NormalTok{(}\StringTok{'Country Name'}
+\NormalTok{              ,}\StringTok{'year'}\NormalTok{) )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Final data}
+\NormalTok{dat6 <-}\StringTok{ }\KeywordTok{drop_na}\NormalTok{(dat5)}
+\KeywordTok{colnames}\NormalTok{(dat6) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"CountryName"}\NormalTok{, }\StringTok{"Year"}\NormalTok{, }\StringTok{"InternationalTourism"}\NormalTok{, }\StringTok{"EmploymentInService"}\NormalTok{, }\StringTok{"PopulationDensity"}\NormalTok{, }\StringTok{"SecureInternetServer"}\NormalTok{, }\StringTok{"RuralPopulation"}\NormalTok{, }\StringTok{"GDP"}\NormalTok{)}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(dat6)}
+\KeywordTok{head}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   CountryName Year InternationalTourism EmploymentInService
+## 1 Afghanistan 2013            1.3487539            24404522
+## 2      Angola 2013            0.6397658             9885476
+## 3     Albania 2013           26.0776739             1291587
+## 4  Arab World 2013            7.7883120           161751073
+## 5   Argentina 2013            9.3253954             3693179
+## 6     Armenia 2013           18.3880040             1067354
+##   PopulationDensity SecureInternetServer RuralPopulation      GDP
+## 1          49.42804             1.425491    2.056105e+10 27.61100
+## 2          20.86771             4.574147    1.367100e+11 41.83300
+## 3         105.66029            35.577453    1.277628e+10 36.61800
+## 4          33.80379            20.498471    2.867270e+12 58.44397
+## 5          15.42116            73.857422    5.520250e+11 90.85700
+## 6         101.77675            54.528186    1.112147e+10 48.78600
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat7 <-}\StringTok{ }\NormalTok{df[df}\OperatorTok{$}\NormalTok{Year }\OperatorTok{==}\StringTok{ "2017"}\NormalTok{,]}
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ dat7, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ CountryName, }\DataTypeTok{y =}\NormalTok{ EmploymentInService)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat =} \StringTok{"identity"}\NormalTok{)}
+\NormalTok{p1}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Untitled_files/figure-beamer/unnamed-chunk-27-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(}\StringTok{"caret"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: caret
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: lattice
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'caret'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:purrr':
+## 
+##     lift
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{index =}\StringTok{ }\KeywordTok{createDataPartition}\NormalTok{(df}\OperatorTok{$}\NormalTok{EmploymentInService,}\DataTypeTok{p=}\NormalTok{.}\DecValTok{7}\NormalTok{,}\DataTypeTok{list=}\NormalTok{F)}
+\NormalTok{train =}\StringTok{ }\NormalTok{df[index,]}
+\NormalTok{test =}\StringTok{ }\NormalTok{df[}\OperatorTok{-}\NormalTok{index,]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{skimr}\OperatorTok{::}\KeywordTok{skim}\NormalTok{(train)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}ll@{}}
+\caption{Data summary}\tabularnewline
+\toprule
+\endhead
+Name & train\tabularnewline
+Number of rows & 716\tabularnewline
+Number of columns & 8\tabularnewline
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ &\tabularnewline
+Column type frequency: &\tabularnewline
+character & 2\tabularnewline
+numeric & 6\tabularnewline
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ &\tabularnewline
+Group variables & None\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Variable type: character}
+
+\begin{longtable}[]{@{}lrrrrrrr@{}}
+\toprule
+skim\_variable & n\_missing & complete\_rate & min & max & empty &
+n\_unique & whitespace\tabularnewline
+\midrule
+\endhead
+CountryName & 0 & 1 & 4 & 52 & 0 & 209 & 0\tabularnewline
+Year & 0 & 1 & 4 & 4 & 0 & 5 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Variable type: numeric}
+
+\begin{longtable}[]{@{}lrrrrrrrrrl@{}}
+\toprule
+skim\_variable & n\_missing & complete\_rate & mean & sd & p0 & p25 &
+p50 & p75 & p100 & hist\tabularnewline
+\midrule
+\endhead
+InternationalTourism & 0 & 1 & 6.400000e+00 & 4.010000e+00 & 0.37 &
+3.780000e+00 & 5.570000e+00 & 7.980000e+00 & 2.608000e+01 &
+▇▆▁▁▁\tabularnewline
+EmploymentInService & 0 & 1 & 1.920179e+08 & 5.561328e+08 & 0.00 &
+1.054451e+06 & 7.161092e+06 & 5.363689e+07 & 3.392454e+09 &
+▇▁▁▁▁\tabularnewline
+PopulationDensity & 0 & 1 & 1.976500e+02 & 7.078200e+02 & 1.85 &
+3.333000e+01 & 6.758000e+01 & 1.352900e+02 & 7.915730e+03 &
+▇▁▁▁▁\tabularnewline
+SecureInternetServer & 0 & 1 & 1.843980e+03 & 5.489570e+03 & 0.15 &
+1.378000e+01 & 1.011000e+02 & 1.009380e+03 & 5.869033e+04 &
+▇▁▁▁▁\tabularnewline
+RuralPopulation & 0 & 1 & 3.275968e+12 & 9.669204e+12 & 302925488.10 &
+1.447117e+10 & 1.111355e+11 & 1.211938e+12 & 8.089130e+13 &
+▇▁▁▁▁\tabularnewline
+GDP & 0 & 1 & 6.240000e+01 & 2.414000e+01 & 2.97 & 4.272000e+01 &
+6.730000e+01 & 8.432000e+01 & 9.806000e+01 & ▂▃▅▅▇\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{skimr}\OperatorTok{::}\KeywordTok{skim}\NormalTok{(test)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}ll@{}}
+\caption{Data summary}\tabularnewline
+\toprule
+\endhead
+Name & test\tabularnewline
+Number of rows & 304\tabularnewline
+Number of columns & 8\tabularnewline
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ &\tabularnewline
+Column type frequency: &\tabularnewline
+character & 2\tabularnewline
+numeric & 6\tabularnewline
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ &\tabularnewline
+Group variables & None\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Variable type: character}
+
+\begin{longtable}[]{@{}lrrrrrrr@{}}
+\toprule
+skim\_variable & n\_missing & complete\_rate & min & max & empty &
+n\_unique & whitespace\tabularnewline
+\midrule
+\endhead
+CountryName & 0 & 1 & 4 & 52 & 0 & 167 & 0\tabularnewline
+Year & 0 & 1 & 4 & 4 & 0 & 5 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Variable type: numeric}
+
+\begin{longtable}[]{@{}lrrrrrrrrrl@{}}
+\toprule
+skim\_variable & n\_missing & complete\_rate & mean & sd & p0 & p25 &
+p50 & p75 & p100 & hist\tabularnewline
+\midrule
+\endhead
+InternationalTourism & 0 & 1 & 6.110000e+00 & 3.930000e+00 & 0.32 &
+3.570000e+00 & 5.300000e+00 & 7.650000e+00 & 2.707000e+01 &
+▇▅▁▁▁\tabularnewline
+EmploymentInService & 0 & 1 & 1.576341e+08 & 4.326955e+08 & 0.00 &
+1.075294e+06 & 7.314390e+06 & 5.140983e+07 & 3.369152e+09 &
+▇▁▁▁▁\tabularnewline
+PopulationDensity & 0 & 1 & 5.570700e+02 & 2.630740e+03 & 2.81 &
+3.697000e+01 & 7.720000e+01 & 1.353800e+02 & 2.047977e+04 &
+▇▁▁▁▁\tabularnewline
+SecureInternetServer & 0 & 1 & 1.891510e+03 & 6.494990e+03 & 0.17 &
+1.420000e+01 & 9.376000e+01 & 6.156100e+02 & 7.041213e+04 &
+▇▁▁▁▁\tabularnewline
+RuralPopulation & 0 & 1 & 2.833442e+12 & 8.701223e+12 & 318265835.30 &
+2.014457e+10 & 8.442316e+10 & 1.031022e+12 & 7.718960e+13 &
+▇▁▁▁▁\tabularnewline
+GDP & 0 & 1 & 6.171000e+01 & 2.432000e+01 & 12.20 & 3.998000e+01 &
+6.755000e+01 & 8.401000e+01 & 9.783000e+01 & ▃▅▃▆▇\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Correlation Visualization}
+\KeywordTok{require}\NormalTok{(dplyr)}
+\KeywordTok{require}\NormalTok{(reshape)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: reshape
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
+## logical.return = TRUE, : there is no package called 'reshape'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df_numeric <-}\StringTok{ }\KeywordTok{select_if}\NormalTok{(df, is.numeric)}
+\NormalTok{sig =}\StringTok{ }\NormalTok{df_numeric }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(InternationalTourism, EmploymentInService, PopulationDensity, SecureInternetServer, RuralPopulation, GDP) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{cor}\NormalTok{()}
+\NormalTok{ggcorrplot}\OperatorTok{::}\KeywordTok{ggcorrplot}\NormalTok{(sig, }\DataTypeTok{hc.order =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Untitled_files/figure-beamer/unnamed-chunk-30-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Create 10-fold Cross Validation}
+\NormalTok{control <-}\StringTok{ }\KeywordTok{trainControl}\NormalTok{(}\DataTypeTok{method =} \StringTok{"repeatedcv"}\NormalTok{,}
+                        \DataTypeTok{number =} \DecValTok{10}\NormalTok{,}
+                        \DataTypeTok{repeats =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Linear Regression}
+\NormalTok{lm <-}\StringTok{ }\KeywordTok{suppressWarnings}\NormalTok{(}\KeywordTok{train}\NormalTok{(RuralPopulation }\OperatorTok{~}\StringTok{ }\NormalTok{EmploymentInService, }\DataTypeTok{data =}\NormalTok{ train, }\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{,}
+                             \DataTypeTok{metric =} \StringTok{"RMSE"}\NormalTok{, }\DataTypeTok{trControl =}\NormalTok{ control))}
+\NormalTok{lm}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linear Regression 
+## 
+## 716 samples
+##   1 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold, repeated 5 times) 
+## Summary of sample sizes: 644, 644, 645, 645, 645, 644, ... 
+## Resampling results:
+## 
+##   RMSE          Rsquared   MAE         
+##   7.023154e+12  0.4456962  3.061707e+12
+## 
+## Tuning parameter 'intercept' was held constant at a value of TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{test <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(test, CountryName }\OperatorTok{!=}\StringTok{ "Barbados"}\NormalTok{)}
+\NormalTok{test <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(test, CountryName }\OperatorTok{!=}\StringTok{ "Senegal"}\NormalTok{)}
+\NormalTok{lm_pred <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(lm, test)}
+\NormalTok{lm_pred <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{lm_pred =}\NormalTok{ lm_pred, }\DataTypeTok{target =}\NormalTok{ test}\OperatorTok{$}\NormalTok{EmploymentInService)}
+\KeywordTok{head}\NormalTok{(lm_pred)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         lm_pred   target
+## 2  1.163798e+12  9885476
+## 24 1.050283e+12    97073
+## 27 1.125735e+12  6603314
+## 28 1.505040e+12 39310807
+## 29 1.073854e+12  2129601
+## 30 1.075146e+12  2241070
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ lm_pred) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ target, }\DataTypeTok{y =}\NormalTok{ lm_pred)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ test, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ EmploymentInService, }\DataTypeTok{y =}\NormalTok{ RuralPopulation))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Untitled_files/figure-beamer/unnamed-chunk-34-1.pdf}
+
+\end{frame}
+
+\end{document}

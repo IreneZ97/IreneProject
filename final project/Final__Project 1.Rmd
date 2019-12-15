@@ -1,0 +1,299 @@
+---
+title: "Final Prject"
+author: "Xun Zhang"
+date: "12/2/2019"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+fontsize: 12pt
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Abstract
+The world has witnessed a rapid growth in service industry. The focus of this project is to use the rate of male employment in service as an indicator of the degree of prosperity in service industry. We make use of R with the tool of data wrangling, data visualization and machine learning to study
+the relationships between variables and employ model linear regression to make prediction.
+
+Key Words: Service industry, World Bank, employment, economy, development
+
+## Introduction
+My goal is to find proper predictor for the response variable male employment rate in service. Is the model useful and helpful? That is, is the independent variables I picked that provides information in other areas better than the simple predictor, the mean of datas over last several years?
+How strong the relationship is to the target? 
+In this report I will go through the background, data, analysis and results to present an overview of my project. In each part I would like to recruit the actual content like the data and graph. And finally I evaluate my work in all and point out what can be improved next time.
+
+## Problem Statement and Background
+Now I am interested in service industry. I decide to take the rate of male employment in service as an indicator of the degree of prosperity of service industry, meaning the higher the rate of male engaging in service is, the more developed the service industry is in this country. I isolate my project from gender discussion(like the comparison of the rate between males and females). The target - the rate of male employment I have chosen is just one of the interpretations for the state of service industry in every country. Also, I believe other things like the volume of production yielded in service industry will work in the same way. 
+Other categories of data are selected intuitively, but not randomly. They are rural population, GDP, population density, international tourism and secure internet server.
+First, I thought the development of service is closely related urbanisation. When rural population drops down, that means more and more people are freed from farming (might be the result of mechanized harvesting) and turn to work in cities and urban-rural fringe area. Much open labor force for the service will be provided due to the spatial distribution of population. Thus, at first glance rural population is a meaningful variable to be taken into consideration.
+Second, population density. The assumption I made is that the more population is concentrated, the clearer the division of labor is and the more people are needed to serve this huge population. Thus, the industry is promoted. 
+Third, GDP is a straightforward indicator of the development state of one country. Experience has taught us that the when a country’s economy achieves a lot, its service industry will reach a higher level, too. 
+Forth, International tourism. The industry of tourism has flourished these years, especially when it comes to traveling abroad. From my perspective, international tourism will boost the service industry and consequently result in higher rate of male employment in service.
+
+## Data
+I downloaded the data I need from the database of Wold Bank website, which has huge and reliable database.
+
+All charts are saved in CSV format, which walk me through the input work with much ease.
+
+Data Wrangling
+The first thing I need to do is to install and require the package tidyverse.
+I use function Select() to pick up data from 2013-2017, because I need unified time frame for all categories of data I have. Select() helps me to keep only the variables I mention. 
+Then I reshaped my chart by using function Gather(), which takes multiple columns and collapses into key-value pairs. 
+Next, I employ function Full_Join() to line up my variables. It helps me to merge my frames.
+Finally, I drop NA by applying function Omit_NA to make it look cleaner and pave the way for next steps.
+## Analysis
+There three main aspects in my work:
+First, the correlation study of the relationship between variables.
+Second, cross validation when training model, the reason why I did this is to reduce the bias.
+Third, model linear regression to predict the rate of male employment in service.
+The reason why I want to create models is to analysis the relationship of variables by calculating the correlation
+
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+require(readr)
+```
+
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+a = read_csv("population density.csv")
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+b = read_csv("secure internet server.csv")
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+c = read_csv("rural population.csv")
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+d = read_csv("GDP.csv")
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+e = read_csv("international tourism.csv")
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+f = read_csv("employment in service.csv")
+```
+
+
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+require(tidyverse)
+```
+
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+a1 <- select(a,"Country Name","2013":"2017")
+
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+a2 <- a1 %>% gather("year","population density",-"Country Name")
+
+```
+
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+b1 <- select(b,"Country Name","2013":"2017")
+
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+b2 <- b1 %>% gather("year","secure internet server",-"Country Name")
+
+```
+
+
+
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+c1 <- select(c,"Country Name","2013":"2017")
+
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+c2 <- c1 %>% gather("year","rural population",-"Country Name")
+
+```
+
+
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+d1 <- select(d,"Country Name","2013":"2017")
+
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+d2 <- d1 %>% gather("year","GDP",-"Country Name")
+
+```
+
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+e1 <- select(e,"Country Name","2013":"2017")
+
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+e2 <- e1 %>% gather("year","international tourism",-"Country Name")
+
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+f1 <- select(f,"Country Name","2013":"2017")
+
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+f2 <- f1 %>% gather("year","employmet in survice",-"Country Name")
+
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+dat1 <- full_join(a2,b2,
+         by=c('Country Name'
+              ,'year') )
+
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+dat2 <- full_join(c2,d2,
+         by=c('Country Name'
+              ,'year') )
+
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+dat3<- full_join(e2,f2,
+         by=c('Country Name'
+              ,'year') )
+
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+dat4 <- full_join(dat1,dat2,
+         by=c('Country Name'
+              ,'year') )
+
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+dat5 <- full_join(dat3,dat4,
+         by=c('Country Name'
+              ,'year') )
+
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+# Final data
+dat6 <- drop_na(dat5)
+colnames(dat6) <- c("CountryName", "Year", "InternationalTourism", "EmploymentInService", "PopulationDensity", "SecureInternetServer", "RuralPopulation", "GDP")
+df1 <- data.frame(dat6)
+head(df1)
+```
+
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+dat7 <- df1[df1$Year == "2017",]
+p1 <- ggplot(data = dat7, aes(x = CountryName, y = EmploymentInService)) + 
+  geom_bar(stat = "identity")
+p1
+```
+
+## Results
+
+As it shows in the graph, male employment in service spreads very unevenly across countries all over the world. There exists huge difference between countries. Some are at high level, but most are at low level. The result is the same as my expectation. 
+The problem here is that I have too many countries at hand, even when I chose to only select the year of 2017, their names still crowd together under the horizontal axis. This may negatively affect the effectiveness of the information communication with message recipients, which goes against the intent of why we decide to make use of data visualization.
+
+
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+require("caret")
+index = createDataPartition(df1$EmploymentInService,p=.7,list=F)
+train = df1[index,]
+test = df1[-index,]
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+skimr::skim(train)
+skimr::skim(test)
+```
+
+Because I am going to see how my data looks and want to explore it, I try to split them randomly, assuming 70% as train data, and the rest 30% as test data. Here comes the result. 
+The left is predicted value, the right is true value.
+The correlation is one of our aims for the project. 
+
+
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+# Correlation Visualization
+require(dplyr)
+require(reshape)
+df_numeric <- select_if(df1, is.numeric)
+sig = df_numeric %>% select(InternationalTourism, EmploymentInService, PopulationDensity, SecureInternetServer, RuralPopulation, GDP) %>% cor()
+ggcorrplot::ggcorrplot(sig, hc.order = TRUE)
+```
+At the very first, we need to omit country name and years, because they belong to class - character rather than numeric.
+In the plot, the darker the color, the stronger the correlation. In the scale from -1 to 1, corresponding negative relationship and positive relationship. 
+As we could tell from the results show on the plot above, rural population is in obvious correlation with the rate of male employment in service. The possible reason behind this has been stated in previous section: people who are attracted from rural area are likely to take on work in service in cities (this remains to be examined in the future work). As we assumed before, GDP also in a relatively strong relationship with the target and the connection between the male employment in service and secure Internet server is poor.
+What surprise me most is that international tourism and the target we set not really correlate with each other (if we are still interested in the topic of tourism, it might be helpful to have a look at the domestic).
+Because the correlation is strongest between the rate of male employment in service and rural population, in the next we will focus on rural population.
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+# Create 10-fold Cross Validation
+control <- trainControl(method = "repeatedcv",
+                        number = 10,
+                        repeats = 5)
+```
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+# Linear Regression
+lm <- suppressWarnings(train(RuralPopulation ~ EmploymentInService, data = train, method = "lm",
+                             metric = "RMSE", trControl = control))
+lm
+```
+At the start, I use the ten-fold cross validation on the training set. The process will be repeated five times to complete. The reason why to do this is to reduce the bias of dataset and make it better.
+
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+#test <- subset(test, CountryName != "Barbados")
+#test <- subset(test, CountryName != "Senegal")
+#lm_pred <- predict(lm, test)
+#lm_pred <- data.frame(lm_pred = lm_pred, target = test$EmploymentInService)
+#head(lm_pred)
+```
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+#ggplot(data = lm_pred) +
+  #geom_line(aes(x = target, y = lm_pred)) + 
+  #geom_point(data = test, aes(x = EmploymentInService, y = RuralPopulation))
+```
+
+For most columns of my data are numeric, and target column is numeric, too, I decided to create regression model. Each time we use 644 or 645 observations to train the model.
+The line is Linear regression. We can tell that train data does not have a good performance here.
+Rural population and the rate of male employment in service are not quite linearly related to each other. As shown in the graph, there are some point locating very far away from the line we drew.
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+knn <- train(EmploymentInService ~ ., data = train, method = "knn",
+                             metric = "RMSE", trControl = control, importance = 'impurity')
+knn
+```
+
+
+
+```{r, echo = FALSE, message = FALSE, fig.height=10,fig.width=5, fig.show='hold'}
+plot(knn)
+```
+
+## Discussion
+In this part I am going to talk part how successful is my project. 
+With the help of models and plots in R, we have figured out how strong the relationship is between the variables I picked. 
+Let’s look at the disadvantages first. 
+At beginning, the year of data I use is from 2013 to 2017. Thus, the timeliness is not as good as I expected before I stated this project.
+Second, the tool I wanted to use but failed exists, that is random forest. Until the end I have no idea why the model can not run and export the result. At first, I thought it was because of NA(not applicable values) that I didn’t clean up. Then I wondered if the data type is the reason, like I by mistake did not transform all character into numeric. I gave it a try and wanted to fix the problem, but it did not work out. This hurts the efficiency of my project. 
+All in all I have achieved what I set out to do before the project. The correlation between variables are examined and the model works well.
+Where to go next:
+In the future work, I would like to add more variables into my work, put them into the model.
